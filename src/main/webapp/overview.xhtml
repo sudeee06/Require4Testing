@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>Übersicht Testfälle</title>
+</h:head>
+
+<h:body>
+
+    <h:link value="Requirements" outcome="requirement.xhtml"/>
+    <h:link value="TestCases" outcome="testcases.xhtml"/>
+    <h:link value="TestRuns" outcome="testrun.xhtml"/>
+    <h:link value="Overview" outcome="overview.xhtml"/>
+    <hr/>
+
+    <h2>Überblick über Testläufe und zugewiesene Testfälle</h2>
+
+    <h:dataTable value="#{overviewBean.allTestRuns}" var="tr" border="1">
+
+        <h:column>
+            <f:facet name="header">TestRun</f:facet>
+            #{tr.name}
+            <br/>
+            <small>Erstellt am: #{tr.createdAt}</small>
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Zugeordnete TestCases</f:facet>
+
+            <ui:fragment rendered="#{empty tr.testCases}">
+                Keine TestCases zugewiesen
+            </ui:fragment>
+
+            <ui:repeat value="#{tr.testCases}" var="tc">
+                • #{tc.title} <br/>
+            </ui:repeat>
+
+        </h:column>
+
+    </h:dataTable>
+
+
+</h:body>
+</html>

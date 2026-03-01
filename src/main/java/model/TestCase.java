@@ -1,6 +1,8 @@
 package model;
 
 import jakarta.persistence.*;
+import java.util.List;
+import model.TestRun;
 
 @Entity
 @Table(name = "testcase")
@@ -18,7 +20,11 @@ public class TestCase {
     @JoinColumn(name = "requirement_id")
     private Requirement requirement;
 
-    public TestCase() {}
+    @ManyToMany(mappedBy = "testCases")
+    private List<TestRun> testRuns;
+
+    public TestCase() {
+    }
 
     public Long getId() {
         return id;

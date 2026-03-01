@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ipwa02-01</groupId>
-  <artifactId>lektion3</artifactId>
+  <artifactId>require4testing</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>lektion3 Maven Webapp</name>
+  <name>require4testing Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
   <properties>
@@ -16,6 +16,7 @@
   </properties>
   
   <dependencies>
+
     <dependency>
       <groupId>com.mysql</groupId>
       <artifactId>mysql-connector-j</artifactId>
@@ -47,6 +48,7 @@
       <version>5.0.0</version>
       <scope>provided</scope>
     </dependency>
+
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>jakarta.faces</artifactId>
@@ -64,22 +66,18 @@
       <artifactId>jakarta.enterprise.cdi-api</artifactId>
       <version>3.0.0</version>
     </dependency>
+
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
       <artifactId>weld-servlet-core</artifactId>
       <version>4.0.2.Final</version>
     </dependency>
     
-    <dependency>
-      <groupId>org.primefaces</groupId>
-      <artifactId>primefaces</artifactId>
-      <version>11.0.0</version>
-      <classifier>jakarta</classifier>
-    </dependency>
+
     
   </dependencies>
   
   <build>
-    <finalName>lektion3</finalName>
+    <finalName>require4testing</finalName>
   </build>
 </project>

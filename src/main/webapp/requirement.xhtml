@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="jakarta.faces.html">
 
 <h:head>
     <title>Require4Testing</title>
@@ -9,30 +8,33 @@
 
 <h:body>
 
+    <h:link value="Requirements" outcome="requirement.xhtml"/>
+    <h:link value="TestCases" outcome="testcases.xhtml"/>
+    <h:link value="TestRuns" outcome="testrun.xhtml"/>
+    <hr/>
+
     <h2>Neue Anforderung erstellen</h2>
 
     <h:form>
 
-        <p:panel header="Requirement">
+        <h:panelGrid columns="1">
 
-            <p:inputText value="#{requirementBean.requirement.title}"
-                         placeholder="Titel" required="true"/>
+            <h:inputText value="#{requirementBean.requirement.title}"
+                         required="true"/>
 
-            <br/><br/>
+            <br/>
 
-            <p:inputTextarea value="#{requirementBean.requirement.description}"
-                             placeholder="Beschreibung" rows="5"/>
+            <h:inputTextarea value="#{requirementBean.requirement.description}"
+                             rows="5" cols="40"/>
 
-            <br/><br/>
+            <br/>
 
-            <p:commandButton value="Speichern"
-                             action="#{requirementBean.save}"
-                             update="@form"/>
+            <h:commandButton value="Speichern"
+                             action="#{requirementBean.save}"/>
 
-        </p:panel>
+        </h:panelGrid>
 
     </h:form>
 
 </h:body>
 </html>
-

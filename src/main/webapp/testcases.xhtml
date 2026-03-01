@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>TestCases</title>
+</h:head>
+<h:body>
+
+    <h:link value="Requirements" outcome="requirement.xhtml"/>
+    <h:link value="TestCases" outcome="testcases.xhtml"/>
+    <h:link value="TestRuns" outcome="testrun.xhtml"/>
+    <hr/>
+
+    <h:form>
+
+        Titel:
+        <h:inputText value="#{testCaseBean.testCase.title}"/>
+
+        Beschreibung:
+        <h:inputTextarea value="#{testCaseBean.testCase.description}"/>
+
+        Requirement:
+        <h:selectOneMenu value="#{testCaseBean.selectedRequirementId}">
+            <f:selectItems value="#{testCaseBean.allRequirements}"
+                           var="r"
+                           itemValue="#{r.id}"
+                           itemLabel="#{r.title}"/>
+        </h:selectOneMenu>
+
+        <h:commandButton value="Speichern"
+                         action="#{testCaseBean.save}"/>
+
+    </h:form>
+
+    <h2>Alle TestCases</h2>
+
+    <h:dataTable value="#{testCaseBean.allTestCases}" var="tc" border="1">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{tc.id}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Titel</f:facet>
+            #{tc.title}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Requirement</f:facet>
+            #{tc.requirement != null ? tc.requirement.title : ''}
+        </h:column>
+
+    </h:dataTable>
+
+</h:body>
+</html>
