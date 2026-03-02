@@ -2,33 +2,23 @@ package bean;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
 import model.TestCase;
-import util.JpaUtil;
 import model.Requirement;
+import dao.TestCaseDAO;
 
 import java.util.List;
 
 @Named
 @RequestScoped
-
 public class TestCaseBean {
 
-    public List<TestCase> getAllTestCases() {
-
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        List<TestCase> list = em.createQuery("SELECT t FROM TestCase t", TestCase.class).getResultList();
-        em.close();
-        return list;
-    }
-
+    private TestCaseDAO dao = new TestCaseDAO();
     private TestCase testCase = new TestCase();
+    private Long selectedRequirementId;
 
     public TestCase getTestCase() {
         return testCase;
     }
-
-    private Long selectedRequirementId;
 
     public Long getSelectedRequirementId() {
         return selectedRequirementId;
@@ -38,30 +28,27 @@ public class TestCaseBean {
         this.selectedRequirementId = selectedRequirementId;
     }
 
-
+    /**
+     * Speichert den Testfall und verknüpft ihn mit der gewählten Anforderung.
+     * Nutzt die Seitennavigation über den Rückgabewert.
+     */
     public String save() {
+        dao.save(testCase, selectedRequirementId);
 
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        em.getTransaction().begin();
-
-        Requirement req = em.find(Requirement.class, selectedRequirementId);
-        testCase.setRequirement(req);
-
-        em.persist(testCase);
-        em.getTransaction().commit();
-        em.close();
-
+        //Zustand nach dem Speichern zurücksetzen
         testCase = new TestCase();
+        selectedRequirementId = null;
 
+        //Navigation zurück zur Übersicht oder Neuladen der Seite
         return "testcases.xhtml?faces-redirect=true";
     }
 
+    //Liefert alle Anforderungen für das Dropdown-Menü in der View.
     public List<Requirement> getAllRequirements() {
-
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        List<Requirement> list = em.createQuery("SELECT r FROM Requirement r", Requirement.class).getResultList();
-        em.close();
-
-        return list;
+        return dao.findAllRequirements();
     }
-}
+
+        public List<TestCase> getAllTestCases() {
+            return dao.findAll();
+        }
+    }

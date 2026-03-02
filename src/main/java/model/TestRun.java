@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,9 +12,14 @@ public class TestRun {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    // Ergänzung für Anforderung 4: Zuordnung eines Testers
+    private String tester;
+
     private LocalDateTime createdAt;
 
     @ManyToMany
@@ -22,7 +28,10 @@ public class TestRun {
             joinColumns = @JoinColumn(name = "test_run_id"),
             inverseJoinColumns = @JoinColumn(name = "testcase_id")
     )
-    private List<TestCase> testCases;
+    private List<TestCase> testCases = new ArrayList<>(); //Initialisierung zur Vermeidung von Fehlern
+
+    public TestRun() {
+    }
 
     @PrePersist
     public void prePersist() {
@@ -35,6 +44,10 @@ public class TestRun {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,8 +56,20 @@ public class TestRun {
         this.name = name;
     }
 
+    public String getTester() {
+        return tester;
+    }
+
+    public void setTester(String tester) {
+        this.tester = tester;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public List<TestCase> getTestCases() {

@@ -3,10 +3,8 @@ package bean;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
 import model.Requirement;
-import util.JpaUtil;
+import dao.RequirementDAO;
 
 import java.util.List;
 
@@ -16,13 +14,11 @@ public class RequirementBean {
 
     private Requirement requirement = new Requirement();
     private List<Requirement> requirements;
+    private RequirementDAO dao = new RequirementDAO();
 
     @PostConstruct
     public void init() {
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        requirements = em.createQuery("SELECT r FROM Requirement r", Requirement.class)
-                .getResultList();
-        em.close();
+        requirements = dao.findAll();
     }
 
     public Requirement getRequirement() {
@@ -34,14 +30,7 @@ public class RequirementBean {
     }
 
     public void save() {
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction et = em.getTransaction();
-
-        et.begin();
-        em.persist(requirement);
-        et.commit();
-        em.close();
-
-        requirement = new Requirement();
+        dao.save(requirement);
+        requirements = dao.findAll();
     }
 }

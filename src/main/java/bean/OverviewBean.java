@@ -2,9 +2,8 @@ package bean;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
+import dao.OverviewDAO;
 import model.TestRun;
-import util.JpaUtil;
 
 import java.util.List;
 
@@ -12,16 +11,13 @@ import java.util.List;
 @RequestScoped
 public class OverviewBean {
 
+    private OverviewDAO overviewDAO = new OverviewDAO();
+
+    /**
+     * Gibt die Liste der Testläufe an die Weboberfläche zurück.
+     * Die Bean selbst enthält keinen Datenbankcode mehr.
+     */
     public List<TestRun> getAllTestRuns() {
-
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-
-        List<TestRun> list = em.createQuery(
-                "SELECT DISTINCT tr FROM TestRun tr LEFT JOIN FETCH tr.testCases",
-                TestRun.class
-        ).getResultList();
-
-        em.close();
-        return list;
+        return overviewDAO.findAllWithTestCases();
     }
 }
