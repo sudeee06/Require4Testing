@@ -1,5 +1,6 @@
 package model;
 
+import bean.OverviewBean;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "requirement")
-public class Requirement {
+public class Requirement extends OverviewBean {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

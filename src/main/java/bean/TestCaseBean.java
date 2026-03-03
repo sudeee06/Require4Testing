@@ -40,7 +40,7 @@ public class TestCaseBean {
         selectedRequirementId = null;
 
         //Navigation zurück zur Übersicht oder Neuladen der Seite
-        return "testcases.xhtml?faces-redirect=true";
+        return "testrun.xhtml?faces-redirect=true";
     }
 
     //Liefert alle Anforderungen für das Dropdown-Menü in der View.

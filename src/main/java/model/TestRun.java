@@ -28,7 +28,7 @@ public class TestRun {
             joinColumns = @JoinColumn(name = "test_run_id"),
             inverseJoinColumns = @JoinColumn(name = "testcase_id")
     )
-    private List<TestCase> testCases = new ArrayList<>(); //Initialisierung zur Vermeidung von Fehlern
+    private List<TestCase> testCases = new ArrayList<>();
 
     public TestRun() {
     }

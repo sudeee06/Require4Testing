@@ -19,7 +19,7 @@ public class TestRunDAO {
         try {
             em.getTransaction().begin();
 
-            //Auflösen der IDs in persistente Objekte für die Many-to-Many Beziehung
+
             if (testCaseIds != null && !testCaseIds.isEmpty()) {
                 List<TestCase> selectedCases = testCaseIds.stream()
                         .map(id -> em.find(TestCase.class, id))
@@ -40,7 +40,7 @@ public class TestRunDAO {
             }
             e.printStackTrace();
         } finally {
-            em.close(); // Ressourcenmanagement [11]
+            em.close();
         }
     }
 
